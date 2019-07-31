@@ -18,7 +18,6 @@ department_id　int)
 
 alter table employees add primary key (employee_id)
 
-
 insert into employees values(1,'Tom','Du',12000,'2015-02-12','tom@sina.com','12345550',111,10.2,3,10,'')
 insert into employees values(2,'Tom1','Du1',13000,'2016-02-12','tom1@sina.com','12345551',111,10.3,3,10,'')
 insert into employees values(3,'Tom2','Du2',14000,'2016-01-12','tom2@sina.com','12345552',111,10.4,3,10,'')
@@ -91,6 +90,19 @@ job_grade varchar(20) not null primary key,
 low_salary int,
 high_salary int)
 
+-- get the department_id,department_name, count
+
+select d.department_name, t.id,t.num
+from departments d,
+(select department_id as id, count(*) as num
+from employees
+group by department_id) t
+where t.id = d.department_id
+
+select count(*) from employees
+where department_id=10
+
+-- 
 select department_id,max(salary) as max_s
 	from employees
 	group by department_id
@@ -130,7 +142,7 @@ select *
 	where last_name='Du12'
 	) 
 
-select e2.* 
+select e2.*
 	from employees e1,employees e2
 	where e1.manager_id=e2.employee_id and e1.last_name='Du12'
 
