@@ -23,7 +23,7 @@ namespace CsharpBasic.Basic {
             public int Id { set; get; }
 
             public int P_Id{set;get;}
-            
+
             public string Service_Number { set; get; }
 
             public string Dialed_Number { set; get; }
