@@ -21,7 +21,9 @@ namespace CsharpBasic.Basic {
 
         public class CallLog {
             public int Id { set; get; }
-            public int P_Id { set; get; }
+
+            public int P_Id{set;get;}
+            
             public string Service_Number { set; get; }
 
             public string Dialed_Number { set; get; }
@@ -108,8 +110,8 @@ namespace CsharpBasic.Basic {
             // var records_2 = from p in People
             // from r in CallRecords
             // group r by r.P_Id into g
-            // where 
-            // select 
+            // where
+            // select
         }
         static public void Test1 () {
             var t = seq.Where (x => x > 10).Select (x => x * 10);
