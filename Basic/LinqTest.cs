@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using System;
 using System.Linq;
 
@@ -107,12 +108,71 @@ namespace CsharpBasic.Basic {
                 Console.WriteLine ($"{r.Name} {r.CallFrom} {r.CallTo} {r.Status}");
             }
 
-            // var records_2 = from p in People
-            // from r in CallRecords
-            // group r by r.P_Id into g
-            // where
-            // select
+
+            foreach (var r in records_1) {
+                Console.WriteLine ($"{r.Name} {r.CallFrom} {r.CallTo} {r.Status}");
+            }
+
+            var records_2 = from r1 in CallRecords
+                            group r1 by r1.P_Id into g
+                            select new {g.Key, Num=g.Count()};
+
+            foreach(var r in records_2)
+                Console.WriteLine($"{r.Key} {r.Num}");
+
+            Console.WriteLine("");
+            var records_3 = from r1 in CallRecords
+                            group r1 by r1.P_Id;
+
+            var records_4 = from r in records_3
+                            from p in People
+                            where r.Key == p.Id
+                            select new{Name = p.Name,Id=r.Key, Num=r.Count()};
+
+            foreach(var r in records_4)
+                Console.WriteLine($"{r.Name} {r.Id} {r.Num}");
+
+            var records_5 = from p in People
+                            from r in (
+                                from r1 in CallRecords
+                                group r1 by r1.P_Id into g
+                                select new{Id=g.Key,Num=g.Count()}
+                            )
+                            where p.Id == r.Id
+                            select new{Id=p.Id, Name=p.Name, Num=r.Num};
+
+            Console.WriteLine();
+            foreach(var r in records_5)
+                Console.WriteLine($"{r.Name} {r.Id} {r.Num}");
+
+
+            var records_6 = from p in People
+                            from r in (
+                                CallRecords.GroupBy(x=>x.P_Id).Select(r=>new{Id=r.Key,Num=r.Count()})
+                            )
+                            where p.Id == r.Id
+                            select new{Id=p.Id, Name=p.Name, Num=r.Num};
+
+            Console.WriteLine();
+            foreach(var r in records_6)
+                Console.WriteLine($"{r.Name} {r.Id} {r.Num}");
+
+
+            var records_7 = from r in CallRecords
+                            orderby r.P_Id,r.Call_Status
+                            select new{r.P_Id,r.Call_Status, r.Service_Number};
+            foreach(var r in records_7)
+                Console.WriteLine($"{r.P_Id},{r.Call_Status},{r.Service_Number}");
+
+            Console.WriteLine();
+            var records_8 = CallRecords.OrderBy(r=>r.P_Id).ThenBy(r=>r.Call_Status)
+                            .Select(x=>new{x.P_Id,x.Call_Status,x.Service_Number});
+            foreach(var r in records_7)
+                Console.WriteLine($"{r.P_Id},{r.Call_Status},{r.Service_Number}");
+
         }
+
+
         static public void Test1 () {
             var t = seq.Where (x => x > 10).Select (x => x * 10);
 
