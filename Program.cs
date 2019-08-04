@@ -27,8 +27,11 @@ namespace CsharpBasic {
 
             // LinqTest.Test1();
 
-            LinqTest.TestCallRecords();
+            // LinqTest.TestCallRecords();
 
+            DelegateTest1 dt = new DelegateTest1();
+            dt.TestInvoke();
+            dt.TestPlus();
         }
 
 
