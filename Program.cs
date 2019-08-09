@@ -32,8 +32,41 @@ namespace CsharpBasic {
             DelegateTest1 dt = new DelegateTest1();
             dt.TestInvoke();
             dt.TestPlus();
+
+            // TestJaggedArray();
+
+            SeriableTest st = new SeriableTest();
+
+            st.TestSerialize();
+            st.TestDeserialize();
         }
 
+static void TestJaggedArray()
+{
+        int[][] a = new int[5][];
+
+        a[0] = new int[5]{5,6,7,8,9};
+
+        a[1] = new int[3]{1,2,3};
+
+        a[2] = new int[2]{1,3};
+
+        a[3] = new int[3]{2,3,5};
+
+        a[4] = new int[4]{1,2,3,4};
+
+        Console.WriteLine($"a.Rank={a.Rank}");
+        for(int i=0;i<a.Length;i++)
+            {
+                Console.WriteLine($"i={i}");
+                for(int j=0;j<a[i].Length;j++)
+                    Console.Write($"{a[i][j]} ");
+                Console.WriteLine();
+            }
+
+        int[,] b = new int[4,5];
+        Console.WriteLine($"b.Rank={b.Rank}");
+}
 
 
 static void spicyChicken(int min, int max) {
