@@ -667,4 +667,3 @@ select dateadd(day,2,'2002-10-02')
 select DATEPART(month,'2002-10-12')
 select datepart(year,'2003-10-13')
 select datepart(hour,'2003-10-3 13:13:23')
-
