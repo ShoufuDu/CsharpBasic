@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
+using System.Diagnostics;
 using System.Text;
 using System;
 using System.Linq.Expressions;
@@ -9,6 +11,9 @@ using CsharpBasic.Basic;
 namespace CsharpBasic {
     class Program {
         static void Main (string[] args) {
+            AppDomain app = AppDomain.CurrentDomain;
+            app.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
+
             // TestAction ();
 
             // TestDelegate ();
@@ -27,22 +32,50 @@ namespace CsharpBasic {
 
             // LinqTest.Test1();
 
-            // LinqTest.TestCallRecords();
+            LinqTest.TestCallRecords();
 
-            DelegateTest1 dt = new DelegateTest1();
-            dt.TestInvoke();
-            dt.TestPlus();
+            // DelegateTest1 dt = new DelegateTest1();
+            // dt.TestInvoke();
+            // dt.TestPlus();
 
-            // TestJaggedArray();
+            // // TestJaggedArray();
 
-            SeriableTest st = new SeriableTest();
+            // SeriableTest st = new SeriableTest();
 
-            st.TestSerialize();
-            st.TestDeserialize();
+            // st.TestSerialize();
+            // st.TestDeserialize();
+
+            // TestGarbageCollector();
+
+            // OOTest.Test();
+
+            ExceptionTest.Test();
+
+            // ExceptionTest.Test1();
+
+            // LockTest lt = new LockTest();
+            // lt.MainThreadsTest();
+
+            // ExLockTest lt = new ExLockTest();
+            // lt.MainThreadsTest();
+
+            // Ex1LockTest.Test();
+
+            // FileTest.TestDir();
+
+            // FileTest.TestRW();
+
+            // TestStructAndClass();
         }
 
-static void TestJaggedArray()
-{
+        private static void MyHandler(object sender, UnhandledExceptionEventArgs args)
+        {
+            Exception e = (Exception)args.ExceptionObject;
+            Console.WriteLine($"Exception:{e.Message}, Programm is terminating:{args.IsTerminating}");
+        }
+
+    static void TestJaggedArray()
+    {
         int[][] a = new int[5][];
 
         a[0] = new int[5]{5,6,7,8,9};
@@ -162,6 +195,11 @@ static string reverseAndCapitalise(string sentenceIn) {
             public A () {
                 _b = new B (this);
             }
+
+            ~A()
+            {
+                Console.WriteLine("A destructed");
+            }
         }
 
         public class B {
@@ -169,20 +207,37 @@ static string reverseAndCapitalise(string sentenceIn) {
             public B (A a) {
                 _a = a;
             }
+
+            ~ B(){
+                Console.WriteLine("B destructed");
+            }
         }
 
         public class C {
             public void CreateA () {
                 new A ();
             }
+
+            ~C(){
+                Console.WriteLine("C destructed");
+            }
         }
         static void TestGarbageCollector () {
             C c = new C ();
             c.CreateA ();
+
+            GC.Collect();
         }
         /* #endregion */
 
         /* #region  Test Struct and Class */
+        class MyClass { // switch struct with class
+            public MyClass (int value) {
+                Value = value;
+            }
+            public int Value { get; set; }
+        }
+
         struct MyStruct { // switch struct with class
             public MyStruct (int value) {
                 Value = value;
@@ -198,6 +253,13 @@ static string reverseAndCapitalise(string sentenceIn) {
             d3.Value = 30;
 
             Console.WriteLine ($"d1={d1.Value},d2={d2.Value},d3={d3.Value}");
+
+            MyClass c1 = new MyClass(10);
+            MyClass c2 = new MyClass(20);
+            MyClass c3 = c1;
+            c2 = c3;
+            c3.Value = 30;
+            Console.WriteLine ($"d1={c1.Value},d2={c2.Value},d3={c3.Value}");
         }
         /* #endregion */
 

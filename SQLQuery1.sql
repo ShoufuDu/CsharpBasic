@@ -99,14 +99,16 @@ from employees
 group by department_id) t
 where t.id = d.department_id
 
-select count(*) from employees
-where department_id=10
 
--- 
-select department_id,max(salary) as max_s
-	from employees
-	group by department_id
+select * from employees
+group by department_id
 
+select distinct department_id from employees
+
+-- select department_id,max salary of the department
+select department_id,max(salary) as max_salary
+from employees
+group by department_id
 
 --1、上月的第一天
 SELECT CONVERT(CHAR(10),DATEADD(month,-1,DATEADD(dd,-DAY(GETDATE())+1,GETDATE())),111)
@@ -133,24 +135,26 @@ select manager_id
 	from employees
 	where last_name='Du12'
 
-
-select * 
+--select the information of the person who is the manager of the person whose last_name is 'Du12'
+select *
 	from employees
 	where employee_id=
 	(select manager_id
 	from employees
 	where last_name='Du12'
-	) 
+	)
 
 select e2.*
 	from employees e1,employees e2
 	where e1.manager_id=e2.employee_id and e1.last_name='Du12'
 
+-- select the deparment_id,avg(salary) of the department whose average salary is more than 8000
 select department_id,avg(salary)
 	from employees
 	group by department_id
 	having	avg(salary)>8000
 
+-- select the information of the department whose average salary is more than 8000
 select *
 from departments
 where department_id in (
@@ -160,23 +164,18 @@ where department_id in (
 	having	avg(salary)>8000
 	)
 
+-- select the information of the employee whose salary is the lowest
+select * from employees
+where salary=
+(select min(salary)
+from employees)
 
+-- select the information of all the departments whose average salary is more than 14000
 select department_id,avg(salary)
 	from employees
 	group by department_id
-	having avg(salary)>8000
-
-select *
-	from employees
-	where salary=
-	(select min(salary)
-		from employees)
-
-
-select department_id 
-	from employees
-	group by department_id
 	having avg(salary)>14000
+
 
 select d.*,(select avg(salary)
 					from employees
@@ -590,3 +589,82 @@ from (select top(4) * from employees) as e1
 
 select max(employee_id)
 from employees
+
+
+drop table buylogs
+
+create table buylogs(
+	book_id int not null primary key,
+	book_name varchar(20),
+	buy_date varchar(20),
+	price int
+)
+
+insert into buylogs values(1,'Boy','2010-10-21',23)
+insert into buylogs values(2,'Boy1','2011-10-21',23)
+insert into buylogs values(3,'Boy2','2000-10-21',23)
+insert into buylogs values(4,'Boy3','2000-01-21',23)
+insert into buylogs values(5,'Boy4','2018-10-21',23)
+insert into buylogs values(6,'Boy5','2013-10-21',23)
+insert into buylogs values(7,'Boy6','2020-10-21',23)
+insert into buylogs values(8,'Boy2','2000-10-21',23)
+insert into buylogs values(9,'Boy3','2000-01-21',23)
+insert into buylogs values(10,'Boy4','2018-10-21',23)
+insert into buylogs values(11,'Boy5','2013-10-21',23)
+insert into buylogs values(12,'Boy6','2020-10-21',23)
+
+create index buydate on buylogs(buy_date,book_name)
+
+drop index buydate on buylogs
+
+select * from buylogs where buy_date>'2000-08-9' and buy_date<'2015'
+
+exec sp_helpindex buylogs
+
+Select CONVERT(varchar(100), GETDATE(), 23)
+
+select CONVERT(varchar, getdate(), 120 )
+
+select CONVERT(varchar(12) , getdate(), 112 )
+
+-- 入学时间为字符型：
+-- insert into school.student(学号,专业,入学时间) values(3222,'工商管理',convert(varchar(10),getdate(),120))
+-- 入学时间为日期型：
+-- insert into school.student(学号,专业,入学时间) values(3222,'工商管理',getdate())
+
+
+create table testindex(
+	name varchar(10),
+	sex varchar(10),
+	age int
+)
+
+insert testindex values('1','2',3)
+insert testindex values('1','2',3)
+insert testindex values('1','2',4)
+insert testindex values('1','3',4)
+
+select * from testindex
+
+create index tt on testindex(name)
+create index tt1 on testindex(age)
+
+create clustered index t2 on testindex(age)
+
+drop index tt1 on testindex
+
+create unique index t1 on testindex(name,age)
+
+update testindex set age=12 where name='1'
+
+update testindex set name='2' where sex = '3'
+update testindex set name='3 ' where age=4 and sex='2'
+
+sp_helpindex testindex
+
+select dateadd(day,2,'2002-10-02')
+
+select DATEPART(month,'2002-10-12')
+select datepart(year,'2003-10-13')
+select datepart(hour,'2003-10-3 13:13:23')
+

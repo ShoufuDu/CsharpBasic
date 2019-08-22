@@ -1,6 +1,8 @@
 using System.Reflection.Metadata.Ecma335;
 using System;
 using System.Linq;
+using System.Data.SqlClient;
+
 
 namespace CsharpBasic.Basic {
     public class LinqTest {
@@ -170,6 +172,34 @@ namespace CsharpBasic.Basic {
             foreach(var r in records_7)
                 Console.WriteLine($"{r.P_Id},{r.Call_Status},{r.Service_Number}");
 
+            var rs = CallRecords.GroupBy(r=>r.P_Id)
+                        .Where(grp=>grp.Count() > 1)
+                        .Select(x=>new{Id=x.Key,Count=x.Count()});
+            foreach(var r in rs)
+                Console.WriteLine($"Key:{r.Id},Count:{r.Count}");
+
+            var rs1 = CallRecords.Where(r=>r.P_Id<2&&r.Call_Status==S_C).Select(x=>new{Id=x.P_Id}).Distinct();
+            foreach (var item in rs1)
+            {
+                Console.WriteLine($"key:{item.Id}");
+            }
+
+            var rs2 = (from r in CallRecords
+                      where r.P_Id<2&&r.Call_Status==S_C
+                      select new {ID=r.P_Id,Status=r.Call_Status}).Take(2);
+
+            var rs3 = CallRecords.Where(r=>r.P_Id>5);
+            foreach(var r in rs3)
+                Console.WriteLine(r.Call_Status);
+        }
+
+        static public void TestSql()
+        {
+            // SqlConnection conn = new SqlConnection();
+
+            // string connectionString="Server=localhost,1433;Database=SportsStoreAngular;User Id=sa;password=dusf123SQL!;MultipleActiveResultSets=true";
+     
+            // DataContext db = new DataContext(connectionString);
         }
 
 

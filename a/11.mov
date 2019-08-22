@@ -1,0 +1,11 @@
+r/local/share/dotnet/shared/Microsoft.NETCore.App/2.2.5/System.IO.FileSystem.dll'. Module was built without symbols.
+Loaded '/usr/local/share/dotnet/shared/Microsoft.NETCore.App/2.2.5/System.Linq.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Loaded '/usr/local/share/dotnet/shared/Microsoft.NETCore.App/2.2.5/System.Console.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Loaded '/usr/local/share/dotnet/shared/Microsoft.NETCore.App/2.2.5/System.Memory.dll'. Module was built without symbols.
+Loaded '/usr/local/share/dotnet/shared/Microsoft.NETCore.App/2.2.5/System.Buffers.dll'. Module was built without symbols.
+Loaded '/usr/local/share/dotnet/shared/Microsoft.NETCore.App/2.2.5/System.Collections.dll'. Module was built without symbols.
+Loaded '/usr/local/share/dotnet/shared/Microsoft.NETCore.App/2.2.5/System.Threading.dll'. Module was built without symbols.
+Loaded '/usr/local/share/dotnet/shared/Microsoft.NETCore.App/2.2.5/System.Text.Encoding.Extensions.dll'. Module was built without symbols.
+File:/Users/dusf/Downloads/csharp/myprj/CsharpBasic/a/3.txt,Line:3.txt My name is dusf.
+File:/Users/dusf/Downloads/csharp/myprj/CsharpBasic/a/3.txt,Line:3.txt 1My name is dusf.
+File:/Users/dusf/Downloads/csharp/myprj/CsharpBas
