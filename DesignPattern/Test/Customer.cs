@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CsharpBasic.DesignPattern
+namespace CsharpBasic.DesignPattern.Test
 {
-    public interface ITest
-    {
-        void Test();
-    }
-
     public partial class Customer
     {
         private List<ITest> TestCases = new List<ITest>();

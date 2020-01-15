@@ -11,7 +11,7 @@ using CsharpBasic.Basic;
 using CsharpBasic.Basic.Interface;
 using CsharpBasic.Basic.Test;
 
-using CsharpBasic.DesignPattern;
+using CsharpBasic.DesignPattern.Test;
 using System.Reflection;
 
 namespace CsharpBasic {
@@ -27,9 +27,15 @@ namespace CsharpBasic {
 
             foreach (var m in methods)
             {
-                if (m.Name.Contains("Add"))
+                var attributes = m.GetCustomAttributes(typeof(TestCaseAttribute),false);
+
+                foreach(var attr in attributes)
                 {
-                    m.Invoke(customer,null);
+                    var a = attr as TestCaseAttribute;
+                    if(a.Enabled)
+                    {
+                        m.Invoke(customer, null);
+                    }
                 }
             }
 
