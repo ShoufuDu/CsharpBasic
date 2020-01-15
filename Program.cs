@@ -8,8 +8,38 @@ using CsharpBasic.DesignPattern.Factory;
 using System.Collections.Generic;
 using CsharpBasic.Basic;
 
+using CsharpBasic.Basic.Interface;
+using CsharpBasic.Basic.Test;
+
+using CsharpBasic.DesignPattern;
+using System.Reflection;
+
 namespace CsharpBasic {
     class Program {
+
+        static void ExecuteTest()
+        {
+            var methods = typeof(Customer).GetMethods();
+
+            var customer = new Customer();
+
+            Console.WriteLine("Customer Test start...");
+
+            foreach (var m in methods)
+            {
+                if (m.Name.Contains("Add"))
+                {
+                    m.Invoke(customer,null);
+                }
+            }
+
+            customer.Execute();
+
+            Console.WriteLine("Customer Test end");
+
+            return;
+        }
+         
         static void Main (string[] args) {
             AppDomain app = AppDomain.CurrentDomain;
             app.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
@@ -32,7 +62,7 @@ namespace CsharpBasic {
 
             // LinqTest.Test1();
 
-            LinqTest.TestCallRecords();
+            //LinqTest.TestCallRecords();
 
             // DelegateTest1 dt = new DelegateTest1();
             // dt.TestInvoke();
@@ -49,7 +79,7 @@ namespace CsharpBasic {
 
             // OOTest.Test();
 
-            ExceptionTest.Test();
+            //ExceptionTest.Test();
 
             // ExceptionTest.Test1();
 
@@ -66,7 +96,18 @@ namespace CsharpBasic {
             // FileTest.TestRW();
 
             // TestStructAndClass();
+
+            //var featureTest = new CSharpNewFeature();
+            //featureTest.Test();
+
+            //Customer.ExecuteTest();
+
+            //TestReflection.Test();
+
+            ExecuteTest();
         }
+
+
 
         private static void MyHandler(object sender, UnhandledExceptionEventArgs args)
         {
