@@ -1,12 +1,16 @@
 
 using System;
 
-namespace CsharpBasic.Basic
+namespace CsharpBasic.Basic 
 {
-    public class ExceptionTest
+    public class ExceptionTest : CsharpBasic.Test.ITest
     {
-        public static void Test(){
-            try{
+        public void Test(){
+
+            TestApp();
+
+            try
+            {
                 int x=0;
                 int y = 5;
 

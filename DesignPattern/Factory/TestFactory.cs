@@ -2,8 +2,9 @@ using System;
 
 namespace CsharpBasic.DesignPattern.Factory
 {
-public static partial class TestFactory {
-        public static void TestAll () {
+    public partial class TestFactory : CsharpBasic.Test.ITest
+    {
+        public void Test() {
             TestMyFactory();
             TestSimpleFactory();
             TestAbstractFactory();

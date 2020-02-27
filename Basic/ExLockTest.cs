@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace CsharpBasic.Basic
 {
-    public class ExLockTest
+    public class ExLockTest : CsharpBasic.Test.ITest
     {
         static private object myLock = new object ();
 
@@ -41,6 +41,11 @@ namespace CsharpBasic.Basic
             }
 
             Display("Thread:"+Thread.CurrentThread.Name+" exited");
+        }
+
+        public void Test()
+        {
+            MainThreadsTest();
         }
 
         public void MainThreadsTest () {

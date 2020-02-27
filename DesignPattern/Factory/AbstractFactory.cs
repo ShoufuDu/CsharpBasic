@@ -106,9 +106,9 @@ namespace CsharpBasic.DesignPattern.Factory {
     /* #endregion */
 
     /* #region  Test */
-    static public partial class TestFactory {
+     public partial class TestFactory {
 
-        static public void TestAbstractFactory () {
+        public void TestAbstractFactory () {
 
             IAbstractFactory1 schema1 = new Schema1 ();
             ComputerEngineer engineer = new ComputerEngineer ();

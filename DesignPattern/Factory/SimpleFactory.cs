@@ -60,7 +60,7 @@ namespace CsharpBasic.DesignPattern.Factory {
         }
     }
 
-    public static partial class TestFactory {
+    public partial class TestFactory {
         public static void TestSimpleFactory () {
 
             IProduct a = SimpleFactory.CreateProduct (SimpleFactory.ProductType.TypeA);

@@ -8,65 +8,44 @@ using CsharpBasic.DesignPattern.Factory;
 using System.Collections.Generic;
 using CsharpBasic.Basic;
 
+using CsharpBasic.Test;
+using System.Reflection;
+
 namespace CsharpBasic {
     class Program {
+
+        static void Execute()
+        {
+            var classes = Assembly.GetExecutingAssembly().GetTypes();
+
+            foreach(var c in classes)
+            {
+                if (typeof(ITest).IsAssignableFrom(c))
+                {
+                    var m = c.GetMethod("Test");
+
+                    var attributes = m.GetCustomAttributes(typeof(TestAttribute), false);
+
+                    foreach (var attr in attributes)
+                    {
+                        var a = attr as TestAttribute;
+                        if (a.Enabled)
+                        {
+                            m.Invoke(Assembly.GetExecutingAssembly().CreateInstance(c.FullName), null);
+                        }
+                    }
+                }
+            }
+        }
+         
         static void Main (string[] args) {
             AppDomain app = AppDomain.CurrentDomain;
             app.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
 
-            // TestAction ();
-
-            // TestDelegate ();
-
-            // TestFunc ();
-
-            // LambadaExprssion.Test ();
-
-            // TestExpression ();
-
-            // TestPropertyInit ();
-
-            // TestFactory.TestAll ();
-
-            // TestReverseAndCapitalise();
-
-            // LinqTest.Test1();
-
-            LinqTest.TestCallRecords();
-
-            // DelegateTest1 dt = new DelegateTest1();
-            // dt.TestInvoke();
-            // dt.TestPlus();
-
-            // // TestJaggedArray();
-
-            // SeriableTest st = new SeriableTest();
-
-            // st.TestSerialize();
-            // st.TestDeserialize();
-
-            // TestGarbageCollector();
-
-            // OOTest.Test();
-
-            ExceptionTest.Test();
-
-            // ExceptionTest.Test1();
-
-            // LockTest lt = new LockTest();
-            // lt.MainThreadsTest();
-
-            // ExLockTest lt = new ExLockTest();
-            // lt.MainThreadsTest();
-
-            // Ex1LockTest.Test();
-
-            // FileTest.TestDir();
-
-            // FileTest.TestRW();
-
-            // TestStructAndClass();
+            Execute();
         }
+
+
 
         private static void MyHandler(object sender, UnhandledExceptionEventArgs args)
         {
