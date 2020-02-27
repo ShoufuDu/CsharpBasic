@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CsharpBasic.DesignPattern.Test
+namespace CsharpBasic.Test
 {
     public partial class Customer
     {
-        private List<ITest> TestCases = new List<ITest>();
+        public static Customer Instance = new Customer();
+
+        public List<ITest> TestCases = new List<ITest>();
 
          public void Execute()
         {

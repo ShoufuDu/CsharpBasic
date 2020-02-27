@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CsharpBasic.Basic
 {
-    public class FileTest
+    public class FileTest : CsharpBasic.Test.ITest
     {
         public static void TestDir(){
             string dir = @"/Users/dusf/Downloads/csharp/myprj/CsharpBasic/a";
@@ -26,7 +26,7 @@ namespace CsharpBasic.Basic
         }
 
 
-    public static void TestRW(){
+    public void Test(){
         string f = @"/Users/dusf/Downloads/csharp/myprj/CsharpBasic/a/1.txt";
 
         if (!File.Exists(f))

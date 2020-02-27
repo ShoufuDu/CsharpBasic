@@ -193,13 +193,9 @@ namespace CsharpBasic.Basic {
                 Console.WriteLine(r.Call_Status);
         }
 
-        static public void TestSql()
+        public void Test()
         {
-            // SqlConnection conn = new SqlConnection();
-
-            // string connectionString="Server=localhost,1433;Database=SportsStoreAngular;User Id=sa;password=dusf123SQL!;MultipleActiveResultSets=true";
-     
-            // DataContext db = new DataContext(connectionString);
+            TestCallRecords();
         }
 
 

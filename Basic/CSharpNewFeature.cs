@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CsharpBasic.Basic
 {
-    public class CSharpNewFeature
+    public class CSharpNewFeature : CsharpBasic.Test.ITest
     {
         public int DefaultProperty { set; get; } = 1;
 

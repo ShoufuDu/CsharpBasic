@@ -2,12 +2,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System;
 
 namespace CsharpBasic.Basic
 {
-    public class SeriableTest
+    public class SeriableTest : CsharpBasic.Test.ITest
     {
         public SeriableTest(){
             Person a = new Person("Tom",10);
@@ -20,7 +19,8 @@ namespace CsharpBasic.Basic
         }
 
         [Serializable]
-        public class Person{
+        public class Person 
+        {
             public Person(){}
             public Person(string name,int age){
                 this.name = name;
@@ -74,6 +74,13 @@ namespace CsharpBasic.Basic
                 for(int i=0;i<staff.Count;i++)
                     staff[i].sayHi();
             }
+        }
+
+        public void Test()
+        {
+            TestSerialize();
+
+            TestDeserialize();
         }
     }
 }

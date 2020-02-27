@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CsharpBasic.DesignPattern.Test
+namespace CsharpBasic.Test
 {
     public interface ITest
     {

@@ -50,7 +50,7 @@ namespace CsharpBasic.DesignPattern.Factory {
     /* #endregion */
 
     /* #region  Test */
-    public static partial class TestFactory {
+    public partial class TestFactory {
         public static void TestMyFactory () {
 
             Factory1_A a = new Factory1_A ();

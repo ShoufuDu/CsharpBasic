@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace CsharpBasic.Basic
 {
-    public class NewClass
+    public class NewClass : CsharpBasic.Test.ITest
     {
         public string a;
         public int b;
@@ -33,12 +33,8 @@ namespace CsharpBasic.Basic
         {
 
         }
-    }
 
-
-    public static class TestReflection{
-
-        static public void Test()
+        public void Test()
         {
             NewClass nc = new NewClass();
 
@@ -53,7 +49,7 @@ namespace CsharpBasic.Basic
 
                 ParameterInfo[] ps = c.GetParameters();
 
-                foreach(var p in ps)
+                foreach (var p in ps)
                 {
                     Console.WriteLine(p.ParameterType.ToString() + " " + p.Name);
                 }
@@ -83,7 +79,7 @@ namespace CsharpBasic.Basic
             ((NewClass)o3).Show();
 
             PropertyInfo[] pros = t.GetProperties();
-            foreach(var ps in pros)
+            foreach (var ps in pros)
             {
                 Console.WriteLine("Pros: type:" + ps.PropertyType + " " + "name:" + ps.Name);
             }
@@ -98,15 +94,15 @@ namespace CsharpBasic.Basic
             MethodInfo[] methods = t.GetMethods();
             foreach (var m in methods)
             {
-                Console.WriteLine(m.ReturnType.ToString() + " " + "method name:" + m.Name );
+                Console.WriteLine(m.ReturnType.ToString() + " " + "method name:" + m.Name);
 
                 var paras = m.GetParameters();
-                foreach(var p in paras)
+                foreach (var p in paras)
                 {
                     Console.WriteLine("Params type:" + p.ParameterType + " parma name:" + p.Name);
                 }
-            } 
+            }
         }
-    
     }
+
 }

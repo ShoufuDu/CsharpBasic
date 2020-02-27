@@ -25,8 +25,20 @@ namespace CsharpBasic.DesignPattern.Factory.ParaFactory
         }
     }
 
-    class ProductWork
+    class ProductWork : CsharpBasic.Test.ITest
     {
+        public void Test() 
+        {
+            var productWork = new ProductWork();
+
+            productWork.WorkFrom(1, "Good");
+
+            var productWorkEx = new ProductWorkEx();
+            productWorkEx.WorkFrom(1, "Good");
+
+            productWorkEx.WorkFrom(3, "Good");
+        }
+
         protected virtual IProduct CreateProduct(int type)
         {
             IProduct product = null;
@@ -77,34 +89,3 @@ namespace CsharpBasic.DesignPattern.Factory.ParaFactory
     }
 }
 
-
-namespace CsharpBasic.DesignPattern.Test
-{
-    using CsharpBasic.DesignPattern.Factory.ParaFactory;
-
-    class TestParaFactory : ITest
-    {
-        public bool Enabled => true;
-
-        public void Test()
-        {
-            var productWork = new ProductWork();
-
-            productWork.WorkFrom(1, "Good");
-
-            var productWorkEx = new ProductWorkEx();
-            productWorkEx.WorkFrom(1, "Good");
-
-            productWorkEx.WorkFrom(3, "Good");
-        }
-    }
-
-    public partial class Customer
-    {
-        [TestCase(false)]
-        public void TestParaFactory()
-        {
-            TestCases.Add(new TestParaFactory());
-        }
-    }
-}

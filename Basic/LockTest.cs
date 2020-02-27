@@ -2,7 +2,8 @@ using System;
 using System.Threading;
 
 namespace CsharpBasic.Basic {
-    public class LockTest {
+    public class LockTest : CsharpBasic.Test.ITest
+    {
         static private object myLock = new object ();
 
         static ReaderWriterLock rwl = new ReaderWriterLock ();
@@ -39,6 +40,12 @@ namespace CsharpBasic.Basic {
             }
 
             Display("Thread:"+Thread.CurrentThread.Name+" exited");
+        }
+
+
+        public void Test()
+        {
+            MainThreadsTest();
         }
 
         public void MainThreadsTest () {

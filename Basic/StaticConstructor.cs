@@ -20,7 +20,7 @@ namespace CsharpBasic.Basic
         }
     }
 
-    public class StaticConstructor
+    public class StaticConstructor : CsharpBasic.Test.ITest
     {
         private static int count = 2;
 
@@ -37,34 +37,48 @@ namespace CsharpBasic.Basic
             FlagClass2 = new FlagClass2();
         }
 
-        public void Show()
-        {
-            Console.WriteLine($"count is {count}");
-        }
-    }
-}
-
-
-namespace CsharpBasic.DesignPattern.Test
-{
-    using CsharpBasic.Basic;
-
-    class TestStaticConstructor : ITest
-    {
         public void Test()
         {
             var obj = new StaticConstructor();
 
             obj.Show();
+
+            Console.WriteLine($"A.X={A.X}, B.Y={B.Y}");
+
+            Console.WriteLine($"Time is {DateTime.Now.ToString("yyyy-MM-dd")}");
+        }
+
+        public void Show()
+        {
+            Console.WriteLine($"count is {count}");
         }
     }
 
-    public partial class Customer
+    class A
     {
-        [TestCase(false)]
-        public void TestStaticConstructor()
+        public static int X;
+
+        static A()
         {
-            TestCases.Add(new TestStaticConstructor());
+            Console.WriteLine("Call A static constructor");
+
+            Console.WriteLine($"B.Y={B.Y}");
+
+            X = B.Y + 1;
+        }
+    }
+
+    class B
+    {
+        public static int Y;
+
+        static B()
+        {
+            Console.WriteLine("Call B static constructor");
+
+            Console.WriteLine($"A.x={A.X}");
+
+            Y = A.X + 1;
         }
     }
 }

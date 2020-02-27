@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CsharpBasic.DesignPattern.Test
+namespace CsharpBasic.Test
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple =true)]
-    public class TestCaseAttribute : Attribute
+    public class TestAttribute : Attribute
     {
         public bool Enabled { get; private set; }
 
-        public TestCaseAttribute(bool enabled = true)
+        public TestAttribute(bool enabled = true)
         {
             Enabled = enabled;
         }

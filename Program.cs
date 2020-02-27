@@ -8,109 +8,41 @@ using CsharpBasic.DesignPattern.Factory;
 using System.Collections.Generic;
 using CsharpBasic.Basic;
 
-using CsharpBasic.Basic.Interface;
-using CsharpBasic.Basic.Test;
-
-using CsharpBasic.DesignPattern.Test;
+using CsharpBasic.Test;
 using System.Reflection;
 
 namespace CsharpBasic {
     class Program {
 
-        static void ExecuteTest()
+        static void Execute()
         {
-            var methods = typeof(Customer).GetMethods();
+            var classes = Assembly.GetExecutingAssembly().GetTypes();
 
-            var customer = new Customer();
-
-            Console.WriteLine("Customer Test start...");
-
-            foreach (var m in methods)
+            foreach(var c in classes)
             {
-                var attributes = m.GetCustomAttributes(typeof(TestCaseAttribute),false);
-
-                foreach(var attr in attributes)
+                if (typeof(ITest).IsAssignableFrom(c))
                 {
-                    var a = attr as TestCaseAttribute;
-                    if(a.Enabled)
+                    var m = c.GetMethod("Test");
+
+                    var attributes = m.GetCustomAttributes(typeof(TestAttribute), false);
+
+                    foreach (var attr in attributes)
                     {
-                        m.Invoke(customer, null);
+                        var a = attr as TestAttribute;
+                        if (a.Enabled)
+                        {
+                            m.Invoke(Assembly.GetExecutingAssembly().CreateInstance(c.FullName), null);
+                        }
                     }
                 }
             }
-
-            customer.Execute();
-
-            Console.WriteLine("Customer Test end");
-
-            return;
         }
          
         static void Main (string[] args) {
             AppDomain app = AppDomain.CurrentDomain;
             app.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
 
-            // TestAction ();
-
-            // TestDelegate ();
-
-            // TestFunc ();
-
-            // LambadaExprssion.Test ();
-
-            // TestExpression ();
-
-            // TestPropertyInit ();
-
-            // TestFactory.TestAll ();
-
-            // TestReverseAndCapitalise();
-
-            // LinqTest.Test1();
-
-            //LinqTest.TestCallRecords();
-
-            // DelegateTest1 dt = new DelegateTest1();
-            // dt.TestInvoke();
-            // dt.TestPlus();
-
-            // // TestJaggedArray();
-
-            // SeriableTest st = new SeriableTest();
-
-            // st.TestSerialize();
-            // st.TestDeserialize();
-
-            // TestGarbageCollector();
-
-            // OOTest.Test();
-
-            //ExceptionTest.Test();
-
-            // ExceptionTest.Test1();
-
-            // LockTest lt = new LockTest();
-            // lt.MainThreadsTest();
-
-            // ExLockTest lt = new ExLockTest();
-            // lt.MainThreadsTest();
-
-            // Ex1LockTest.Test();
-
-            // FileTest.TestDir();
-
-            // FileTest.TestRW();
-
-            // TestStructAndClass();
-
-            //var featureTest = new CSharpNewFeature();
-            //featureTest.Test();
-
-            //Customer.ExecuteTest();
-
-            //TestReflection.Test();
-
-            ExecuteTest();
+            Execute();
         }
 
 

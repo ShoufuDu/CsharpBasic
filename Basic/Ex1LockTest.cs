@@ -123,9 +123,9 @@ namespace CsharpBasic.Basic
             Unchanged
         }
     }
-    public class Ex1LockTest
+    public class Ex1LockTest : CsharpBasic.Test.ITest
     {
-        public static void Test(){
+        public void Test(){
             var tasks = new List<Task>();
             SynchronizeCache sc = new SynchronizeCache();
             int itemLength = 0;
